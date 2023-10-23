@@ -172,10 +172,9 @@ class _CadastroPageState extends State<CadastroPage> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                             image: _pickedFile != null
-                                ? FileImage(File(_pickedFile!
-                                    .path)) // Usar FileImage se _pickedFile não for nulo
-                                : FileImage(File(
-                                    profile)), // Usar AssetImage (imagem padrão) se _pickedFile for nulo
+                                ? FileImage(File(_pickedFile!.path))
+                                : AssetImage(profile) as ImageProvider<
+                                    Object>, // Defina o tipo da imagem explicitamente
                             fit: BoxFit.cover,
                           ),
                         ),
