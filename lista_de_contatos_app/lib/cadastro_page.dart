@@ -63,16 +63,22 @@ class _CadastroPageState extends State<CadastroPage> {
                 icon:
                     const FaIcon(FontAwesomeIcons.check), // Ícone de adicionar
                 onPressed: () {
-                  contato = ContatosRepository(
-                      telefone: telefoneController.text,
-                      nomeCompleto:
-                          '${nomeController.text} ${sobrenomeController.text}',
-                      email: emailController.text,
-                      empresa: empresaController.text,
-                      profile: _pickedFile != null ? _pickedFile!.path : "");
-
-                  ContatosBack4App.salvarContato(contato);
-                  Navigator.pop(context, true);
+                  if (nomeController.text.isNotEmpty &&
+                      telefoneController.text.isNotEmpty) {
+                    contato = ContatosRepository(
+                        telefone: telefoneController.text,
+                        nomeCompleto:
+                            '${nomeController.text} ${sobrenomeController.text}',
+                        email: emailController.text,
+                        empresa: empresaController.text,
+                        profile: _pickedFile != null ? _pickedFile!.path : "");
+                    ContatosBack4App.salvarContato(contato);
+                    Navigator.pop(context, true);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                            "Os campos obrigatórios(*) devem ser preenchidos!")));
+                  }
                 },
               ),
             ],
