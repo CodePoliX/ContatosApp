@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+ <!-- Adicione a permissão INTERNET -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    
     <application
         android:label="lista_de_contatos_app"
         android:name="${applicationName}"

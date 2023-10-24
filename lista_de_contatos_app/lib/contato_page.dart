@@ -82,7 +82,7 @@ class _ContatoPageState extends State<ContatoPage> {
                           child: InkWell(
                             onTap: () {
                               showModalBottomSheet(
-                                  backgroundColor: Colors.amber,
+                                  backgroundColor: Colors.grey[900],
                                   context: context,
                                   builder: (context) {
                                     return Column(
@@ -104,6 +104,7 @@ class _ContatoPageState extends State<ContatoPage> {
                                               child: Text(
                                                 "${contato.nomeCompleto}",
                                                 style: const TextStyle(
+                                                    color: Colors.amber,
                                                     fontWeight: FontWeight.w700,
                                                     fontSize: 20),
                                               ),
@@ -112,23 +113,53 @@ class _ContatoPageState extends State<ContatoPage> {
                                               child: Text(
                                                 "${contato.telefone}",
                                                 style: const TextStyle(
+                                                    color: Colors.amber,
                                                     fontSize: 18),
                                               ),
                                             ),
-                                            Center(
-                                              child: Text(
-                                                "${contato.email}",
-                                                style: const TextStyle(
-                                                    fontSize: 18),
-                                              ),
-                                            ),
-                                            Center(
-                                              child: Text(
-                                                "${contato.empresa}",
-                                                style: const TextStyle(
-                                                    fontSize: 18),
-                                              ),
-                                            ),
+                                            contato.email != null &&
+                                                    contato.email!.isNotEmpty
+                                                ? Center(
+                                                    child: Text(
+                                                      "${contato.email}",
+                                                      style: const TextStyle(
+                                                          color: Colors.amber,
+                                                          fontSize: 18),
+                                                    ),
+                                                  )
+                                                : InkWell(
+                                                    onTap: () {},
+                                                    child: const Text(
+                                                      "Adicionar email",
+                                                      style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 17,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                  ), // Ou qualquer outro widget que você deseja exibir se o email for nulo ou vazio
+
+                                            contato.empresa != null &&
+                                                    contato.empresa!.isNotEmpty
+                                                ? Center(
+                                                    child: Text(
+                                                      "${contato.empresa}",
+                                                      style: const TextStyle(
+                                                          color: Colors.amber,
+                                                          fontSize: 18),
+                                                    ),
+                                                  )
+                                                : InkWell(
+                                                    onTap: () {},
+                                                    child: const Text(
+                                                      "Adicionar empresa",
+                                                      style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 17,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                  ),
                                             const SizedBox(
                                               height: 12,
                                             ),
@@ -191,7 +222,11 @@ class _ContatoPageState extends State<ContatoPage> {
                           child: const CadastroPage(),
                         );
                       },
-                    );
+                    ).then((value) {
+                      if (value == true) {
+                        carregarContatos();
+                      }
+                    });
                   },
                   child: const FaIcon(
                     FontAwesomeIcons.userPlus,

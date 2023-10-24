@@ -55,7 +55,7 @@ class _CadastroPageState extends State<CadastroPage> {
             leading: IconButton(
               icon: const FaIcon(FontAwesomeIcons.xmark), // Ícone de cancelar
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(context, false);
               },
             ),
             actions: [
@@ -70,8 +70,9 @@ class _CadastroPageState extends State<CadastroPage> {
                       email: emailController.text,
                       empresa: empresaController.text,
                       profile: _pickedFile != null ? _pickedFile!.path : "");
+
                   ContatosBack4App.salvarContato(contato);
-                  Navigator.pop(context);
+                  Navigator.pop(context, true);
                 },
               ),
             ],
