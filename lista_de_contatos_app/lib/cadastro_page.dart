@@ -62,7 +62,7 @@ class _CadastroPageState extends State<CadastroPage> {
               IconButton(
                 icon:
                     const FaIcon(FontAwesomeIcons.check), // Ícone de adicionar
-                onPressed: () {
+                onPressed: () async {
                   if (nomeController.text.isNotEmpty &&
                       telefoneController.text.isNotEmpty) {
                     contato = ContatosRepository(
@@ -72,7 +72,8 @@ class _CadastroPageState extends State<CadastroPage> {
                         email: emailController.text,
                         empresa: empresaController.text,
                         profile: _pickedFile != null ? _pickedFile!.path : "");
-                    ContatosBack4App.salvarContato(contato);
+                    await ContatosBack4App.salvarContato(contato);
+                    // ignore: use_build_context_synchronously
                     Navigator.pop(context, true);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

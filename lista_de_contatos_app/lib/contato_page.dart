@@ -32,7 +32,7 @@ class _ContatoPageState extends State<ContatoPage> {
         contatos = listaContatos;
       });
     } catch (e) {
-      print("ERRO: $e");
+      // print("ERRO: $e");
     }
   }
 
@@ -164,7 +164,13 @@ class _ContatoPageState extends State<ContatoPage> {
                                               height: 12,
                                             ),
                                             TextButton(
-                                                onPressed: () {},
+                                                onPressed: () async {
+                                                  await server.deletarContato(
+                                                      contato.telefone!);
+                                                  carregarContatos();
+                                                  // ignore: use_build_context_synchronously
+                                                  Navigator.pop(context);
+                                                },
                                                 child: const Text(
                                                   "Excluir contato",
                                                   style: TextStyle(

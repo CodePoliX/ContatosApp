@@ -22,12 +22,12 @@ class ContatosRepository {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["telefone"] = telefone;
-    _data["nomeCompleto"] = nomeCompleto;
-    _data["email"] = email;
-    _data["empresa"] = empresa;
-    _data["profile"] = profile;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["telefone"] = telefone;
+    data["nomeCompleto"] = nomeCompleto;
+    data["email"] = email;
+    data["empresa"] = empresa;
+    data["profile"] = profile;
+    return data;
   }
 }

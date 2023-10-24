@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
-import 'package:lista_de_contatos_app/cadastro_page.dart';
 import 'package:lista_de_contatos_app/contato_page.dart';
 
 class SlashPage extends StatefulWidget {
