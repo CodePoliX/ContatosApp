@@ -102,4 +102,84 @@ class ContatosBack4App {
 
     return false; // Falha na exclusão
   }
+
+  Future<void> editarEmail(String telefone, String novoEmail) async {
+    Dio dio = Dio();
+    var headers = {
+      'X-Parse-Application-Id': 'RUhjn3VXCKzPFF8BfBBv7YQSGIEAN8mbWvkJq76r',
+      'X-Parse-REST-API-Key': 'eqWVj7O8awXpHZkdFsvq5EWgt0RuW9cwbjzSplEb',
+      'Content-Type': 'application/json',
+    };
+    String className = 'contatos';
+
+    try {
+      // Passo 1: Consulta para obter o objeto com base no telefone
+      Response response = await dio.get(
+        'https://parseapi.back4app.com/classes/$className?where={"telefone":"$telefone"}',
+        options: Options(headers: headers),
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> results = response.data['results'];
+        if (results.isNotEmpty) {
+          String objectId = results[0]['objectId'];
+
+          // Passo 2: Atualizar o objeto com o novo email
+          Response updateResponse = await dio.put(
+            'https://parseapi.back4app.com/classes/$className/$objectId',
+            data: {
+              'email': novoEmail,
+            },
+            options: Options(headers: headers),
+          );
+
+          if (updateResponse.statusCode == 200) {
+            print("Email atualizado com sucesso.");
+          }
+        }
+      }
+    } catch (e) {
+      print('Erro na solicitação: $e');
+    }
+  }
+
+  Future<void> editarEmpresa(String telefone, String novaEmpresa) async {
+    Dio dio = Dio();
+    var headers = {
+      'X-Parse-Application-Id': 'RUhjn3VXCKzPFF8BfBBv7YQSGIEAN8mbWvkJq76r',
+      'X-Parse-REST-API-Key': 'eqWVj7O8awXpHZkdFsvq5EWgt0RuW9cwbjzSplEb',
+      'Content-Type': 'application/json',
+    };
+    String className = 'contatos';
+
+    try {
+      // Passo 1: Consulta para obter o objeto com base no telefone
+      Response response = await dio.get(
+        'https://parseapi.back4app.com/classes/$className?where={"telefone":"$telefone"}',
+        options: Options(headers: headers),
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> results = response.data['results'];
+        if (results.isNotEmpty) {
+          String objectId = results[0]['objectId'];
+
+          // Passo 2: Atualizar o objeto com o novo email
+          Response updateResponse = await dio.put(
+            'https://parseapi.back4app.com/classes/$className/$objectId',
+            data: {
+              'empresa': novaEmpresa,
+            },
+            options: Options(headers: headers),
+          );
+
+          if (updateResponse.statusCode == 200) {
+            print("Email atualizado com sucesso.");
+          }
+        }
+      }
+    } catch (e) {
+      print('Erro na solicitação: $e');
+    }
+  }
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lista_de_contatos_app/cadastro_page.dart';
 import 'package:lista_de_contatos_app/data/contatos_back4app.dart';
@@ -18,6 +19,8 @@ class _ContatoPageState extends State<ContatoPage> {
   Dio dio = Dio();
   var server = ContatosBack4App();
   List<ContatosRepository> contatos = [];
+  var emailController = TextEditingController();
+  var empresaController = TextEditingController();
 
   @override
   void initState() {
@@ -128,7 +131,61 @@ class _ContatoPageState extends State<ContatoPage> {
                                                     ),
                                                   )
                                                 : InkWell(
-                                                    onTap: () {},
+                                                    onTap: () async {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      // Abre um diálogo de edição de email
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return AlertDialog(
+                                                            title: const Text(
+                                                                'Editar Email'),
+                                                            content: TextField(
+                                                              controller:
+                                                                  emailController,
+                                                              decoration:
+                                                                  const InputDecoration(
+                                                                      hintText:
+                                                                          'Novo Email'),
+                                                            ),
+                                                            actions: <Widget>[
+                                                              TextButton(
+                                                                child: const Text(
+                                                                    'Cancelar'),
+                                                                onPressed: () {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                },
+                                                              ),
+                                                              TextButton(
+                                                                child: const Text(
+                                                                    'Salvar'),
+                                                                onPressed:
+                                                                    () async {
+                                                                  String
+                                                                      novoEmail =
+                                                                      emailController
+                                                                          .text;
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop(); // Fecha o diálogo
+
+                                                                  // Chama a função de edição de email com o novo email
+                                                                  await server.editarEmail(
+                                                                      contato
+                                                                          .telefone!,
+                                                                      novoEmail);
+                                                                  carregarContatos();
+                                                                },
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
+                                                    },
                                                     child: const Text(
                                                       "Adicionar email",
                                                       style: TextStyle(
@@ -137,8 +194,7 @@ class _ContatoPageState extends State<ContatoPage> {
                                                           fontWeight:
                                                               FontWeight.w500),
                                                     ),
-                                                  ), // Ou qualquer outro widget que você deseja exibir se o email for nulo ou vazio
-
+                                                  ),
                                             contato.empresa != null &&
                                                     contato.empresa!.isNotEmpty
                                                 ? Center(
@@ -150,7 +206,61 @@ class _ContatoPageState extends State<ContatoPage> {
                                                     ),
                                                   )
                                                 : InkWell(
-                                                    onTap: () {},
+                                                    onTap: () async {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      // Abre um diálogo de edição de email
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return AlertDialog(
+                                                            title: const Text(
+                                                                'Editar Empresa'),
+                                                            content: TextField(
+                                                              controller:
+                                                                  empresaController,
+                                                              decoration:
+                                                                  const InputDecoration(
+                                                                      hintText:
+                                                                          'empresa'),
+                                                            ),
+                                                            actions: <Widget>[
+                                                              TextButton(
+                                                                child: const Text(
+                                                                    'Cancelar'),
+                                                                onPressed: () {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                },
+                                                              ),
+                                                              TextButton(
+                                                                child: const Text(
+                                                                    'Salvar'),
+                                                                onPressed:
+                                                                    () async {
+                                                                  String
+                                                                      novaEmpresa =
+                                                                      empresaController
+                                                                          .text;
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop(); // Fecha o diálogo
+
+                                                                  // Chama a função de edição de email com o novo email
+                                                                  await server.editarEmpresa(
+                                                                      contato
+                                                                          .telefone!,
+                                                                      novaEmpresa);
+                                                                  carregarContatos();
+                                                                },
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
+                                                    },
                                                     child: const Text(
                                                       "Adicionar empresa",
                                                       style: TextStyle(
